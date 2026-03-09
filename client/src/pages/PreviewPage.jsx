@@ -70,9 +70,9 @@ export default function PreviewPage() {
             <Button size="sm" variant="secondary" onClick={handlePrint} loading={printLoading}>
               🖨️ <span className="hidden sm:inline">Print</span>
             </Button>
-            <Button size="sm" variant="navy" onClick={handlePDF} loading={pdfLoading}>
+            {/* <Button size="sm" variant="navy" onClick={handlePDF} loading={pdfLoading}>
               📄 <span className="hidden sm:inline">PDF</span>
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>
