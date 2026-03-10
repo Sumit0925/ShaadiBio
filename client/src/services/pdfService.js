@@ -82,7 +82,7 @@ function addBottomPaddingToText(el) {
     el.childNodes.forEach(function (node) {
       if (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== "") {
         if (el.style) {
-          el.style.paddingBottom = "11px";        
+          el.style.paddingBottom = "11px";
           el.style.lineHeight = "0.8";
         }
       }
@@ -164,27 +164,36 @@ export async function exportBiodataPDF(elementId, filename, isGuest) {
     });
 
     // 7. One jsPDF page sized exactly to the canvas — zero slicing
-    var PX_TO_MM = 25.4 / 192; // 1 device px at scale:2 = 25.4/192 mm
-    var margin = 10;
-    var imgW = canvas.width * PX_TO_MM;
-    var imgH = canvas.height * PX_TO_MM;
+    // 7. Render on A4 with equal margins
 
     var doc = new jsPDF({
       orientation: "portrait",
       unit: "mm",
-      format: [imgW + margin * 2, imgH + margin * 2],
+      format: "a4",
       compress: true,
     });
 
-    
+    var pageWidth = doc.internal.pageSize.getWidth();
+    var pageHeight = doc.internal.pageSize.getHeight();
+
+    var margin = 15; // equal margin left/right
+    var usableWidth = pageWidth - margin * 2;
+
+    var canvasRatio = canvas.height / canvas.width;
+    var imgWidth = usableWidth;
+    var imgHeight = usableWidth * canvasRatio;
+
+    // center horizontally
+    var x = (pageWidth - imgWidth) / 2;
+    var y = margin;
 
     doc.addImage(
       canvas.toDataURL("image/jpeg", 0.95),
       "JPEG",
-      margin,
-      margin,
-      imgW,
-      imgH,
+      x,
+      y,
+      imgWidth,
+      imgHeight,
       undefined,
       "FAST",
     );
