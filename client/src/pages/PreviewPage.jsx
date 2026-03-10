@@ -40,6 +40,10 @@ export default function PreviewPage() {
     setPdfLoading(true);
     try {
       await exportBiodataPDF(templateId, formData.name || 'biodata', isGuest);
+    } catch (err) {
+      console.error('PDF failed:', err);
+      alert('PDF download failed. Using print dialog as fallback.\n\nIn the print dialog, select "Save as PDF" as the destination.');
+      printBiodata(templateId, isGuest);
     } finally {
       setPdfLoading(false);
     }
@@ -70,9 +74,9 @@ export default function PreviewPage() {
             <Button size="sm" variant="secondary" onClick={handlePrint} loading={printLoading}>
               🖨️ <span className="hidden sm:inline">Print</span>
             </Button>
-            {/* <Button size="sm" variant="navy" onClick={handlePDF} loading={pdfLoading}>
+            <Button size="sm" variant="navy" onClick={handlePDF} loading={pdfLoading}>
               📄 <span className="hidden sm:inline">PDF</span>
-            </Button> */}
+            </Button>
           </div>
         </div>
       </div>

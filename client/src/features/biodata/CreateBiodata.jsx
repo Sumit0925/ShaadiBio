@@ -197,9 +197,9 @@ export default function CreateBiodata() {
                 <Button variant="secondary" onClick={handlePDF} loading={pdfLoading} className="flex-1 sm:flex-none">
                   🖨️ Print
                 </Button>
-                {/* <Button variant="navy" onClick={handleExportPDF} loading={pdfLoading} className="flex-1 sm:flex-none">
+                <Button variant="navy" onClick={handleExportPDF} loading={pdfLoading} className="flex-1 sm:flex-none">
                   📄 PDF
-                </Button> */}
+                </Button>
                 {currentId && (
                   <Button variant="ghost" onClick={() => navigate(`/preview/${currentId}`)} className="flex-1 sm:flex-none">
                     🔍 Full Preview
